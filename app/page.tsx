@@ -8,7 +8,16 @@ export default async function Home() {
   return (
     <div>
       <p>app de nextjs sss</p>
-      <ClientComponent />
+      <ClientComponent submit={async () => {
+        "use server"
+        console.log('holaa')
+
+        return {name: 'aa'}
+      }} />
+      <button formAction={async () => {
+        "use server"
+        console.log('holaaa')
+      }}>Ejecutar fucntion del servidor</button>
     </div>
   )
 }

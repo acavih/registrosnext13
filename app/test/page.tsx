@@ -1,18 +1,31 @@
-import mongoose from 'mongoose'
-import {Partner} from '../db/Partner'
+"use client"
+import { useEffect, useState } from "react"
+import { useFetch } from "use-http"
 
-export default async function Page () {
-    await mongoose.connect(process.env.MONGO_DB_URI as string, {})
-    
-    const partners = await Partner.find({}).select(['nombre', 'codigo']).limit(20)
+export default function Page () {
+    const [partners, setPartners] = useState<any[]>([])
+    const {get} = useFetch('')
+
+    useEffect(() => {
+        (async () => {
+            const result = await get('/api/partners/list')
+            console.log(result)
+            if (result)
+            setPartners(result)
+        })()
+    }, [])
 
     return (
         <div>
-            {partners.map(p => (
-                <div key={p.nombre}>
-                    <p>{p.nombre}</p>
-                </div>
+            <h1>INFO</h1>
+            {partners.map((p) => (
+                <p key={p._id}>{p.nombre}</p>
             ))}
+            <pre>
+                <code>
+                    {JSON.stringify(partners)}
+                </code>
+            </pre>
         </div>
     )
 }

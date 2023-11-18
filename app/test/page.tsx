@@ -9,7 +9,7 @@ export default async function Page () {
     return (
         <div>
             {partners.map(p => (
-                <div>
+                <div key={p.nombre}>
                     <p>{p.nombre}</p>
                 </div>
             ))}

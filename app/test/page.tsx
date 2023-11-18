@@ -3,18 +3,8 @@ import { useEffect, useState } from "react"
 import { useFetch } from "use-http"
 
 export default function Page () {
-    const [partners, setPartners] = useState<any[]>([])
-    const {get} = useFetch('')
-
-    useEffect(() => {
-        (async () => {
-            const result = await get('/api/partners/list')
-            console.log(result)
-            if (result)
-            setPartners(result)
-        })()
-    }, [])
-
+    const {data: partners = []} = useFetch('/api/partners/list', [])
+    
     return (
         <div>
             <h1>INFO</h1>
